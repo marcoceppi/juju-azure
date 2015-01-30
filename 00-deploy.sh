@@ -23,7 +23,7 @@ sudo usermod -G sudo ${USER}
 [ -f ${USERHOME}/.ssh/id_rsa ] || sudo -u ${USER} ssh-keygen -t rsa -b 2048 -q -N "" -f ${USERHOME}/.ssh/id_rsa
 
 # Install requirements
-sudo apt-get install -qqy git haproxy jq uuid nodejs npm build-essential incron libc6 libpcre3 adduser vim-haproxy apache2 php5
+sudo apt-get install -qqy git haproxy jq uuid nodejs npm build-essential incron libc6 libpcre3 libpcre3-dev libpcrecpp0 adduser vim-haproxy apache2 php5
 
 # Install the juju repo and binaries
 sudo add-apt-repository -y ppa:juju/stable
@@ -35,11 +35,10 @@ if [ ! -d ${USERHOME}/.juju-plugins ]
 then
     sudo -u ${USER} git clone https://github.com/juju/plugins.git ${USERHOME}/.juju-plugins
     sudo -u ${USER} echo "PATH=$PATH:${USERHOME}/.juju-plugins" >> ${USERHOME}/.bash_profile
-    export PATH="$PATH:${USERHOME}/.juju-plugins"
 fi
 
 export PATH="$PATH:${USERHOME}/.juju-plugins"
-sudo -u ${USER} export PATH="$PATH:${USERHOME}/.juju-plugins"
+sudo -u ${USER} echo "PATH=$PATH:${USERHOME}/.juju-plugins" >> ${USERHOME}/.bash_profile
 
 echo "0 0 * * * ${USER} cd ${USERHOME}/.juju-plugins && git pull" | sudo tee /etc/cron.d/${USER}-jujuplugins
 sudo service cron restart
