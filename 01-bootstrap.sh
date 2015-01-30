@@ -23,7 +23,7 @@ sudo chown ubuntu:ubuntu "${AZURECREDS}"
 azure account import ${AZURECREDS}
 
 # Generate the Azure Cert
-./get_cert.py -i ${AZURECREDS} -o ${USERHOME}/.juju/azure.pfx
+${HERE}/get_cert.py -i ${AZURECREDS} -o ${USERHOME}/.juju/azure.pfx
 openssl pkcs12 -in ${USERHOME}/.juju/azure.pfx -out ${USERHOME}/.juju/azure.pem -nodes -passin pass:""
 
 mv ${AZURECREDS} ${AZURECREDS}.bak
@@ -111,10 +111,10 @@ sudo service haproxy restart
 azure vm endpoint ${MYVM} 443 443
 
 # Now modifying the index page
-URL="https\:\/\/${MYVM}"
+URL="https\:\/\/${MYVM}.cloudapp.net"
 PASS=$(cat ${USERHOME}/.juju/environments/${NAME}.jenv | grep password | cut -f2 -d":" | cut -f2 -d" ")
 
-sudo sed -i s/^\<\!.*/\<a\ href\=\"${URL}\"\>You\ can\ now\ login\ here\ with\ password\ \"${PASS}\"\<\\/a\>/ /var/www/html/index.html
+sudo sed -i s/^\<\!.*/\<a\ href\=\"${URL}\"\>You\ can\ now\ login\ here\ with\ password\ \<\\/a\>\"${PASS}\"/ /var/www/html/index.html
 
 
 
