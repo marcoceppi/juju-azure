@@ -24,14 +24,15 @@ sudo -u ${USER} openssl pkcs12 -in ${USERHOME}/.juju/azure.pfx -out ${USERHOME}/
 mv ${AZURECREDS} ${AZURECREDS}.bak
 
 # Create a storage account
-STORAGE="juju"$(date +%Y%m%d)
+STORAGE="juju"$(tr -cd '[:alnum:]' < /dev/urandom | fold -w16 | head -n1)
 sudo -u ${USER} azure storage account create ${STORAGE} --label ${STORAGE} --location "${DEFAULT_ZONE}" --disable-geoReplication
 
 # ID the subscription ID to use
 sudo -u ${USER} azure account list --json > accounts.json
 
 SUB_ID=`jq 'map(select( .isDefault == true)) | .[].id' accounts.json | tr -d "\""`
-NAME=`jq 'map(select( .isDefault == true)) | .[].name' accounts.json | tr -d " \-_\"" | tr [:upper:] [:lower:]`
+#NAME=`jq 'map(select( .isDefault == true)) | .[].name' accounts.json | tr -d " \-_\"" | tr [:upper:] [:lower:]`
+NAME="jenv"$(tr -cd '[:alnum:]' < /dev/urandom | fold -w16 | head -n1)
 
 # Create the environment file
 sudo -u ${USER} cat >> ${USERHOME}/.juju/environments.yaml << EOF
@@ -91,7 +92,6 @@ defaults
         # option httpchk GET /health_check
         option ssl-hello-chk
         server juju-gui ${BACKEND}:443 maxconn 32 check
-
 EOF
 
 sudo service haproxy restart
