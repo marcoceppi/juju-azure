@@ -110,6 +110,7 @@ sudo mv /tmp/haproxy.cfg /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
 azure vm endpoint ${MYVM} 443 443
 
+# Now modifying the index page
 URL="https\:\/\/${MYVM}"
 PASS=$(cat ${USERHOME}/.juju/environments/${NAME}.jenv | grep password | cut -f2 -d":" | cut -f2 -d" ")
 
