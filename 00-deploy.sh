@@ -34,11 +34,12 @@ sudo apt-get install -qqy  juju-core juju juju-deployer juju-jitsu juju-local ju
 if [ ! -d ${USERHOME}/.juju-plugins ] 
 then
     sudo -u ${USER} git clone https://github.com/juju/plugins.git ${USERHOME}/.juju-plugins
-    sudo -u ${USER} echo 'PATH=$PATH:${USERHOME}/.juju-plugins' >> ${USERHOME}/.bash_profile
-    sudo -u ${USER} source ${USERHOME}/.bash_profile
+    sudo -u ${USER} echo "PATH=$PATH:${USERHOME}/.juju-plugins" >> ${USERHOME}/.bash_profile
+    export PATH="$PATH:${USERHOME}/.juju-plugins"
 fi
 
-source ${USERHOME}/.bash_profile
+export PATH="$PATH:${USERHOME}/.juju-plugins"
+sudo -u ${USER} export PATH="$PATH:${USERHOME}/.juju-plugins"
 
 echo "0 0 * * * ${USER} cd ${USERHOME}/.juju-plugins && git pull" | sudo tee /etc/cron.d/${USER}-jujuplugins
 sudo service cron restart
@@ -103,7 +104,7 @@ sudo update-rc.d haproxy defaults
 sudo -u ${USER} juju generate-config -f
 
 # Creating the HTML Upload Page
-sudo cp ${HERE}/index.html ${HERE}/file_uploader.php /var/www/html/
+sudo mv ${HERE}/index.html ${HERE}/file_uploader.php /var/www/html/
 [ ! -f ${UPLOAD_FOLDER} ] && sudo mkdir ${UPLOAD_FOLDER}
 sudo chown -R root:www-data ${UPLOAD_FOLDER}
 sudo chmod -R ug+w ${UPLOAD_FOLDER}
