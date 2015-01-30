@@ -2,11 +2,12 @@
 # This script configures the environment
 
 # Make it verbose for debug
-set -ex 
+# set -ex 
 
 # Load variables
-HERE=`pwd`
-. ${HERE}/common.sh
+HERE=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source ${HERE}/common.sh
+source ${USERHOME}/.bash_profile
 
 sudo find ${UPLOAD_FOLDER} -name "*.publishsettings" -exec mv "{}" "${AZURECREDS}" \;
 
@@ -19,27 +20,27 @@ fi
 sudo chown ubuntu:ubuntu "${AZURECREDS}"
 
 # Import the Azure settings
-sudo -u ${USER} azure account import ${AZURECREDS}
-
+azure account import ${AZURECREDS}
+logger "starting import"
 # Generate the Azure Cert
-sudo -u ${USER} ./get_cert.py -i ${AZURECREDS} -o ${USERHOME}/.juju/azure.pfx
-sudo -u ${USER} openssl pkcs12 -in ${USERHOME}/.juju/azure.pfx -out ${USERHOME}/.juju/azure.pem -nodes -passin pass:""
+./get_cert.py -i ${AZURECREDS} -o ${USERHOME}/.juju/azure.pfx
+openssl pkcs12 -in ${USERHOME}/.juju/azure.pfx -out ${USERHOME}/.juju/azure.pem -nodes -passin pass:""
 
 mv ${AZURECREDS} ${AZURECREDS}.bak
 
 # Create a storage account
 STORAGE="juju"$(tr -cd '[:alnum:]' < /dev/urandom | fold -w16 | head -n1 | tr '[:upper:]' '[:lower:]')
-sudo -u ${USER} azure storage account create ${STORAGE} --label ${STORAGE} --location "${DEFAULT_ZONE}" --disable-geoReplication
+azure storage account create ${STORAGE} --label ${STORAGE} --location "${DEFAULT_ZONE}" --disable-geoReplication
 
 # ID the subscription ID to use
-sudo -u ${USER} azure account list --json > accounts.json
+azure account list --json > accounts.json
 
 SUB_ID=`jq 'map(select( .isDefault == true)) | .[].id' accounts.json | tr -d "\""`
 #NAME=`jq 'map(select( .isDefault == true)) | .[].name' accounts.json | tr -d " \-_\"" | tr [:upper:] [:lower:]`
 NAME="jenv"$(tr -cd '[:alnum:]' < /dev/urandom | fold -w16 | head -n1 | tr '[:upper:]' '[:lower:]')
 
 # Create the environment file
-sudo -u ${USER} cat >> ${USERHOME}/.juju/environments.yaml << EOF
+cat >> ${USERHOME}/.juju/environments.yaml << EOF
 
     ${NAME}:
         type: azure
@@ -52,13 +53,19 @@ sudo -u ${USER} cat >> ${USERHOME}/.juju/environments.yaml << EOF
 EOF
 
 # Juju switch & bootstrap
-sudo -u ${USER} juju switch ${NAME}
-sudo -u ${USER} juju-quickstart --no-browser
+juju switch ${NAME}
+juju-quickstart --no-browser
 
-BACKEND=$(${USERHOME}/.juju-plugins/juju-pprint | grep "juju-gui" | cut -f3 -d" ")
+while true; 
+do
+    BACKEND=$(${USERHOME}/.juju-plugins/juju-pprint | grep "juju-gui" | cut -f3 -d" ")
+    [ "${BACKEND}" != "" ] && break
+    sleep 30
+done
 
 # Now configuring HAProxy
 echo "" | sudo tee /etc/haproxy/haproxy.cfg
+
 sudo cat >> /tmp/haproxy.cfg << EOF
 global
         log /dev/log    local0
@@ -97,6 +104,8 @@ defaults
         option ssl-hello-chk
         server juju-gui ${BACKEND}:443 maxconn 32 check
 EOF
+
+sudo mv /tmp/haproxy.cfg /etc/haproxy/haproxy.cfg
 
 sudo service haproxy restart
 azure vm endpoint ${MYVM} 443 443

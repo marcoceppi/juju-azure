@@ -5,7 +5,7 @@
 set -ex 
 
 # Load variables
-HERE=`pwd`
+HERE=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 . ${HERE}/common.sh
 
 # Test we are OK
