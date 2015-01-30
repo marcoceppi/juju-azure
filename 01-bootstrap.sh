@@ -8,11 +8,15 @@ set -ex
 HERE=`pwd`
 . ${HERE}/common.sh
 
+sudo find ${UPLOAD_FOLDER} -name "*.publishsettings" -exec mv "{}" "${AZURECREDS}" \;
+
 if [ ! -f ${AZURECREDS} ]
 then
-    echo "${AZURECREDS} does not exist on this machine. Exiting gracefully"
+    logger "${AZURECREDS} does not exist on this machine. Exiting gracefully"
     exit 0
 fi
+
+sudo chown ubuntu:ubuntu "${AZURECREDS}"
 
 # Import the Azure settings
 sudo -u ${USER} azure account import ${AZURECREDS}
@@ -24,7 +28,7 @@ sudo -u ${USER} openssl pkcs12 -in ${USERHOME}/.juju/azure.pfx -out ${USERHOME}/
 mv ${AZURECREDS} ${AZURECREDS}.bak
 
 # Create a storage account
-STORAGE="juju"$(tr -cd '[:alnum:]' < /dev/urandom | fold -w16 | head -n1)
+STORAGE="juju"$(tr -cd '[:alnum:]' < /dev/urandom | fold -w16 | head -n1 | tr '[:upper:]' '[:lower:]')
 sudo -u ${USER} azure storage account create ${STORAGE} --label ${STORAGE} --location "${DEFAULT_ZONE}" --disable-geoReplication
 
 # ID the subscription ID to use
@@ -32,7 +36,7 @@ sudo -u ${USER} azure account list --json > accounts.json
 
 SUB_ID=`jq 'map(select( .isDefault == true)) | .[].id' accounts.json | tr -d "\""`
 #NAME=`jq 'map(select( .isDefault == true)) | .[].name' accounts.json | tr -d " \-_\"" | tr [:upper:] [:lower:]`
-NAME="jenv"$(tr -cd '[:alnum:]' < /dev/urandom | fold -w16 | head -n1)
+NAME="jenv"$(tr -cd '[:alnum:]' < /dev/urandom | fold -w16 | head -n1 | tr '[:upper:]' '[:lower:]')
 
 # Create the environment file
 sudo -u ${USER} cat >> ${USERHOME}/.juju/environments.yaml << EOF
