@@ -21,7 +21,7 @@ sudo chown ubuntu:ubuntu "${AZURECREDS}"
 
 # Import the Azure settings
 azure account import ${AZURECREDS}
-logger "starting import"
+
 # Generate the Azure Cert
 ./get_cert.py -i ${AZURECREDS} -o ${USERHOME}/.juju/azure.pfx
 openssl pkcs12 -in ${USERHOME}/.juju/azure.pfx -out ${USERHOME}/.juju/azure.pem -nodes -passin pass:""
