@@ -54,7 +54,10 @@ EOF
 
 # Juju switch & bootstrap
 juju switch ${NAME}
-juju-quickstart --no-browser
+# juju-quickstart --no-browser
+juju bootstrap --to localhost
+juju deploy --to 0 juju-gui
+juju expose juju-gui
 
 while true; 
 do
