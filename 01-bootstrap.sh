@@ -57,6 +57,7 @@ juju switch ${NAME}
 # juju-quickstart --no-browser
 juju bootstrap --to localhost
 juju deploy --to 0 juju-gui
+juju set juju-gui password=admin
 juju expose juju-gui
 
 while true; 
