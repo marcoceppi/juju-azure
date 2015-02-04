@@ -8,6 +8,7 @@ else
 {
     die("No file specified!");
 }
+header("Location: http://VMNAME.cloudapp.net");
 ?>
 <!doctype HTML>
 <html>

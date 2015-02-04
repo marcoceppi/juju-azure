@@ -1,0 +1,14 @@
+{
+	"name": "Easy Juju on Azure",
+	"version": "0.0.1",
+	"dependencies": {
+		"express": "~4.10.2",
+		"multer": "~0.1.6"
+		"socket.io": "*",
+		"socket.io-client": "*",
+	}
+	"bin": "./tail.js",
+	"config": {
+		"port": 3000
+	}
+}

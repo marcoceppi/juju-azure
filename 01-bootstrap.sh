@@ -57,7 +57,7 @@ juju switch ${NAME}
 # juju-quickstart --no-browser
 juju bootstrap --to localhost
 juju deploy --to 0 juju-gui
-juju set juju-gui password=admin
+# juju set juju-gui password=admin
 juju expose juju-gui
 
 while true; 
@@ -118,5 +118,5 @@ azure vm endpoint ${MYVM} 443 443
 # URL="https\:\/\/${MYVM}.cloudapp.net"
 PASS=$(cat ${USERHOME}/.juju/environments/${NAME}.jenv | grep password | cut -f2 -d":" | cut -f2 -d" ")
 
-sudo sed -i -e s/VMNAME/${MYVM}/ -e /\<\!\-\-/d -e /\-\-\>/d /var/www/html/index.html
+sudo sed -i -e s/VMNAME/${MYVM}/ s/PASSWORD/${PASS}/ -e /\<\!\-\-/d -e /\-\-\>/d /var/www/html/index.html
 
