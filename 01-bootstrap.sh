@@ -115,11 +115,8 @@ sudo service haproxy restart
 azure vm endpoint ${MYVM} 443 443
 
 # Now modifying the index page
-URL="https\:\/\/${MYVM}.cloudapp.net"
+# URL="https\:\/\/${MYVM}.cloudapp.net"
 PASS=$(cat ${USERHOME}/.juju/environments/${NAME}.jenv | grep password | cut -f2 -d":" | cut -f2 -d" ")
 
-sudo sed -i s/^\<\!.*/\<a\ href\=\"${URL}\"\>You\ can\ now\ login\ here\ with\ password\ \<\\/a\>\"${PASS}\"/ /var/www/html/index.html
-
-
-
+sudo sed -i -e s/VMNAME/${MYVM}/ -e /\<\!\-\-/d -e /\-\-\>/d /var/www/html/index.html
 

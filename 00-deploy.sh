@@ -103,7 +103,7 @@ sudo update-rc.d haproxy defaults
 sudo -u ${USER} juju generate-config -f
 
 # Creating the HTML Upload Page
-sudo mv ${HERE}/index.html ${HERE}/file_uploader.php /var/www/html/
+sudo mv ${HERE}/web/* /var/www/html/
 [ ! -f ${UPLOAD_FOLDER} ] && sudo mkdir ${UPLOAD_FOLDER}
 sudo chown -R root:www-data ${UPLOAD_FOLDER}
 sudo chmod -R ug+w ${UPLOAD_FOLDER}
@@ -111,7 +111,7 @@ sudo service apache2 restart
 
 # Adding 01-wait.sh to crontab
 sudo chmod +x ${HERE}/01-bootstrap.sh
-echo "*/2 * * * * ubuntu ${HERE}/01-bootstrap.sh" | sudo tee /etc/cron.d/juju-azure
+echo "* * * * * ubuntu ${HERE}/01-bootstrap.sh" | sudo tee /etc/cron.d/juju-azure
 sudo chmod +x /etc/cron.d/juju-azure
 sudo service cron restart
 

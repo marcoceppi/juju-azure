@@ -1,0 +1,87 @@
+<!doctype HTML>
+<html>
+<head>
+    <title>Juju on Azure</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <![endif]-->
+
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon" />
+
+    <!-- google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,700,700italic%7CUbuntu+Mono' rel='stylesheet' type='text/css' />
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" type="text/css" media="screen" href="//assets.ubuntu.com/sites/guidelines/css/responsive/latest/ubuntu-styles.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="static/css/base.css" />
+<body>
+    <header class="banner global" role="banner">
+      <nav role="navigation">
+          <div class="logo">
+              <a class="logo-ubuntu" href="/">
+                  <img width="73" height="30" src="static/img/logo.png" alt="Juju" />
+              </a>
+          </div>
+      </nav>
+    </header>
+    <div class="wrapper">
+        <div class="inner-wrapper">
+            <div class="row row-hero">
+                <div class="six-col">
+                    <h1>Juju on Azure made simple</h1>
+                    <p class="intro">Easily get started on Microsoft Azure, no need to install and configure Juju.</p>
+                </div>
+                <div class="six-col last-col align-center hero-logo">
+                    <img src="static/img/azure.png" alt="Windows Azure" />
+                </div>
+            </div>
+            <div class="row">
+                <h2>Get your credentials</h2>
+                <p>
+                    <a href="http://go.microsoft.com/fwlink/?LinkId=254432">
+                        Download your credentials from Microsoft Azure
+                    </a>
+                </p>
+            </div>
+            <div class="row no-border">
+                <h2>Upload your credentials</h2>
+                <p>
+                    Upload your Microsoft Azure credentials and we'll create your Juju environment.
+                </p>
+                <form action="file_uploader.php" method="post"
+                      enctype="multipart/form-data">
+                    <fieldset>
+                        <ul>
+                            <li>
+                                <label for="file">Select a file to upload:</label>
+                                <input type="file" name="file" size="50" />
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <fieldset class="fieldset-submit">
+                        <ul>
+                            <li>
+                                <input type="submit" value="Upload File" />
+                            </li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="row">
+                <h2>Now refresh this page on a regular basis until it gives you a link</h2>
+                <p>
+                    This may take a little while, so grab a cup of coffee, and come back in a few minutes...
+                    <!-- 
+                    <a href="https://VMNAME.cloudapp.net">
+                        You can now login here with password "admin"
+                    </a>
+                    -->
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
