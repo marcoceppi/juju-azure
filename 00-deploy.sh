@@ -107,11 +107,11 @@ sudo mv ${HERE}/web/* /var/www/html/
 [ ! -f ${UPLOAD_FOLDER} ] && sudo mkdir ${UPLOAD_FOLDER}
 sudo chown -R root:www-data ${UPLOAD_FOLDER}
 sudo chmod -R ug+w ${UPLOAD_FOLDER}
-sudo sed -i s/VMNAME/${MYVM}/ /var/www/html/file_uploader.php
+# sudo sed -i s/VMNAME/${MYVM}/ /var/www/html/file_uploader.php
 
 sudo service apache2 restart
 
-# Adding 01-wait.sh to crontab
+# Adding 01-bootstrap.sh to crontab
 sudo chmod +x ${HERE}/01-bootstrap.sh
 echo "* * * * * ubuntu ${HERE}/01-bootstrap.sh" | sudo tee /etc/cron.d/juju-azure
 sudo chmod +x /etc/cron.d/juju-azure

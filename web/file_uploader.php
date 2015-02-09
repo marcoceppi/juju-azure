@@ -8,7 +8,11 @@ else
 {
     die("No file specified!");
 }
-header("Location: http://VMNAME.cloudapp.net");
+/* Redirection to index.html */
+$host  = $_SERVER['HTTP_HOST'];
+$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+$extra = 'index.html';
+header("Location: http://$host$uri/$extra");
 ?>
 <!doctype HTML>
 <html>

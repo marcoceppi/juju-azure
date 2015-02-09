@@ -5,18 +5,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!--[if IE]>
     <meta http-equiv="X-UA-Compatible" content="IE=8">
-    <![endif]-->
 
     <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon" />
 
-    <!-- google fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,700,700italic%7CUbuntu+Mono' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:300,200,200italic,300italic,600,600italic%7CUbuntu+Mono' rel='stylesheet' type='text/css' />
 
-    <!-- stylesheets -->
     <link rel="stylesheet" type="text/css" media="screen" href="//assets.ubuntu.com/sites/guidelines/css/responsive/latest/ubuntu-styles.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="static/css/base.css" />
+
+    <meta http-equiv="refresh" content="10">
+    <script type="text/javascript">    
+        setInterval(page_refresh, 1000); //NOTE: period is passed in milliseconds
+    </script>
+</head>
 <body>
     <header class="banner global" role="banner">
       <nav role="navigation">
@@ -33,21 +35,24 @@
                 <div class="six-col">
                     <h1>Juju on Azure made simple</h1>
                     <p class="intro">Easily get started on Microsoft Azure, no need to install and configure Juju.</p>
+                    <!--
+                    <p>You can now login <a href="https://VMNAME.cloudapp.net">here</a> with password "PASSWORD"</p>
+                    -->
                 </div>
                 <div class="six-col last-col align-center hero-logo">
                     <img src="static/img/azure.png" alt="Windows Azure" />
                 </div>
             </div>
             <div class="row">
-                <h2>Get your credentials</h2>
+                <h2>1. Get your credentials</h2>
                 <p>
-                    <a href="http://go.microsoft.com/fwlink/?LinkId=254432">
+                    <a href="http://go.microsoft.com/fwlink/?LinkId=254432" target="_blank">
                         Download your credentials from Microsoft Azure
                     </a>
                 </p>
             </div>
-            <div class="row no-border">
-                <h2>Upload your credentials</h2>
+            <div class="row">
+                <h2>2. Upload your credentials</h2>
                 <p>
                     Upload your Microsoft Azure credentials and we'll create your Juju environment.
                 </p>
@@ -71,13 +76,12 @@
                 </form>
             </div>
             <div class="row">
-                <h2>Now refresh this page on a regular basis until it gives you a link</h2>
+                <h2>3. Wait for a few minutes...</h2>
                 <p>
+                    This page autorefreshes. In a few minutes, you'll see a link to the Juju GUI.
                     This may take a little while, so grab a cup of coffee, and come back in a few minutes...
-                    <!-- 
-                    <a href="https://VMNAME.cloudapp.net">
-                        You can now login here with password "PASSWORD"
-                    </a>
+                    <!--  
+                    You can now login <a href="https://VMNAME.cloudapp.net">here</a> with password "PASSWORD"
                     -->
                 </p>
             </div>
