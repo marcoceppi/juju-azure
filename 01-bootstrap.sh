@@ -14,7 +14,7 @@ sudo find ${UPLOAD_FOLDER} -name "*.publishsettings" -exec mv "{}" "${AZURECREDS
 
 if [ ! -f ${AZURECREDS} ]
 then
-    logger "${AZURECREDS} does not exist on this machine. Exiting gracefully"
+    logger "${AZURECREDS} not found or already bootstrapping. Exiting gracefully"
     exit 0
 fi
 
