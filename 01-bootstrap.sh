@@ -132,7 +132,7 @@ sleep 5
 # URL="https\:\/\/${MYVM}.cloudapp.net"
 logger "Updating web page"
 PASS=$(cat ${USERHOME}/.juju/environments/${NAME}.jenv | grep password | cut -f2 -d":" | cut -f2 -d" ")
-MYDNS=$(azure vm show juju18 --json | jq '.DNSName' | tr -d "\"")
+MYDNS=$(azure vm show ${MYVM} --json | jq '.DNSName' | tr -d "\"")
 
 sudo sed -i -e s/VMNAME/"${MYDNS}"/g -e s/PASSWORD/${PASS}/g -e /\<\!\-\-/d -e /\-\-\>/d /var/www/html/index.html
 
