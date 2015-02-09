@@ -133,6 +133,6 @@ sleep 5
 logger "Updating web page"
 PASS=$(cat ${USERHOME}/.juju/environments/${NAME}.jenv | grep password | cut -f2 -d":" | cut -f2 -d" ")
 
-sudo sed -i -e s/VMNAME/${MYVM}/g s/PASSWORD/${PASS}/g -e /\<\!\-\-/d -e /\-\-\>/d /var/www/html/index.html
+sudo sed -i -e s/VMNAME/${MYVM}/g -e s/PASSWORD/${PASS}/g -e /\<\!\-\-/d -e /\-\-\>/d /var/www/html/index.html
 
 logger "Done! User should now enjoy Juju :)"
