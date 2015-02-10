@@ -7,6 +7,10 @@ Now it happens that Microsoft Azure exposes to its users a .publishsettings file
 
 There we go, with some bash-fu and MS Azure, it becomes possible to start a Juju GUI with close to 0 user interaction. 
 
+# Starting quickly
+
+Just connect on [Azure VM Depot](https://vmdepot.msopentech.com/Vhd/Show?vhdId=50248) and create a Virtual Machine from that image. 
+
 # Content of this project
 ## Scripts
 
