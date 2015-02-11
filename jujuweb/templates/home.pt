@@ -12,6 +12,7 @@
 
   <link rel="stylesheet" type="text/css" media="screen" href="//assets.ubuntu.com/sites/guidelines/css/responsive/latest/ubuntu-styles.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="${request.static_url('jujuweb:static/css/base.css')}" />
+  <link rel="stylesheet" type="text/css" media="screen" href="${request.static_url('jujuweb:static/css/progress.css')}" />
 </head>
 <body>
   <header class="banner global" role="banner">
@@ -71,15 +72,28 @@
       <div class="row postupload">
         <h2>3. Wait for a few minutes...</h2>
         <p>
-          This page autorefreshes. In a few minutes, you'll see a link to the Juju GUI.
+          In a few minutes, you'll see a link to the Juju GUI.
           This may take a little while, so grab a cup of coffee, and come back in a few minutes...
-          <!--
-          You can now login <a href="https://VMNAME">here</a> with password "PASSWORD"
-          -->
+          <div class="progressbar">
+            <div class="progress">
+              <div class="progress-annimation"></div>
+            </div>
+          </div>
+          <div class="steps">
+            <ol>
+              <li class="done">Uploading credentials</li>
+              <li>Extracting credentials</li>
+              <li>Creating Azure storage container</li>
+              <li>Generating Juju configuration</li>
+              <li>Bootstrapping Juju</li>
+              <li>Deploying Juju GUI</li>
+            </ol>
+          </div>
         </p>
       </div>
     </div>
   </div>
   <script src="${request.static_url('jujuweb:static/js/jquery-2.1.3.min.js')}"></script>
+  <script src="${request.static_url('jujuweb:static/js/base.js')}"></script>
 </body>
 </html>

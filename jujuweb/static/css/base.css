@@ -24,3 +24,7 @@ header.banner .logo-ubuntu {
 .postupload {
   display: none;
 }
+
+li.done {
+  text-decoration: line-through;
+}
