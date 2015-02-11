@@ -1,4 +1,6 @@
 *~
 .bzr
 .bzrignore
-
+.venv
+*.egg-info
+*.pyc
