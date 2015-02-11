@@ -8,6 +8,7 @@ requires = [
     'pyramid_debugtoolbar',
     'pyramid_tm',
     'waitress',
+    'azure'
     ]
 
 setup(name='jujuweb',
