@@ -1,22 +1,26 @@
 header.banner {
-    height: 50px;
-    background: #000;
+  background: #000;
+  height: 50px;
 }
 
 banner.global {
-    -webkit-box-shadow: inset 0 2px 2px -2px #000;
-    -moz-box-shadow: inset 0 2px 2px -2px #000;
-    box-shadow: inset 0 2px 2px -2px #000;
+  -webkit-box-shadow: inset 0 2px 2px -2px #000;
+  -moz-box-shadow: inset 0 2px 2px -2px #000;
+  box-shadow: inset 0 2px 2px -2px #000;
 }
 
 header.banner .logo {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 header.banner .logo-ubuntu {
-    background-image: url('../img/logo.png');
+  background-image: url('../img/logo.png');
 }
 
 .hero-logo img {
-    margin-top: 80px;
+  margin-top: 80px;
+}
+
+.postupload {
+  display: none;
 }
